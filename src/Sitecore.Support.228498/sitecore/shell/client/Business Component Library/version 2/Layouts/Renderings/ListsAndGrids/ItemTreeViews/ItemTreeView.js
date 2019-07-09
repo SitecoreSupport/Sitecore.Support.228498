@@ -166,14 +166,19 @@
 
       requestStarted(control);
 
-	  //try to set the correct language for the ItemTreeView dialog in Sitecore Forms. issue #228498
-	  try{
-		   document.querySelector("meta[data-sc-name=sitecoreLanguage]").dataset.scContent=JSON.parse(parent.document.forms.item(0).attributes["data-sc-fielditem-properties"].nodeValue)["currentLanguage"];
-	  }
-	  catch{
-		  console.log("Default langiage has been set for the ItemTreeView dialog");
-	  }
-	    
+      //try to set the correct language for the ItemTreeView dialog in Sitecore Forms. issue #228498
+      if (window.parent.document.title === "Form designer") {
+        var fieldItemProperties = $(".sc-formDesignBoard form", window.parent.document).data("sc-fielditem-properties");
+        if (fieldItemProperties) {
+          $("meta[data-sc-name=sitecoreLanguage]").attr("data-sc-content", fieldItemProperties.currentLanguage);
+        } else {
+          var urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get("lang")) {
+            $("meta[data-sc-name=sitecoreLanguage]").attr("data-sc-content", urlParams.get("lang"));
+          }
+        }
+      }
+        
       var options = getOptions.call(control);
 
       itemManager.fetch(rootId, options, function(item, result) {
