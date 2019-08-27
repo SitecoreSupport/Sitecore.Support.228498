@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sitecore\shell\client\Applications\FormsBuilder\Pages\Forms\Forms.js" />
     <Content Include="sitecore\shell\client\Business Component Library\version 2\Layouts\Renderings\ListsAndGrids\ItemTreeViews\ItemTreeView.js" />
   </ItemGroup>
   <ItemGroup>
